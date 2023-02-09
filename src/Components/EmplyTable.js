@@ -1,17 +1,18 @@
 import React, { useEffect, useState } from 'react'
-import CurrVehicles from './CurrVehicles';
-import './carprking.css'
+import CurrEmployee from './CurrEmployee';
+import './employee.css'
 
 
-function CarParking() {
-    const [noofcar, setNoofcar] = useState(0);
+
+function EmplyTable() {
+    const [noOfEmp, setNoOfEmp] = useState(0);
     const [inputarr, setInputarr] = useState([]);
-    const [currVehiclesArr, setCurrVehiclesArr] = useState([]);
-    const [showCurrVehicle, SetShowCurrVehicle] = useState(false);
+    const [currEmployeeArr, setCurrEmployeeArr] = useState([]);
+    const [showCurrEmployee, setShowCurrEmployee] = useState(false);
     const [inputsearch,setInputsearch] = useState('')
     const [inputdata, setInputdata] = useState({
         name: '',
-        carNo: '',
+        emplyNo: '',
         inTime: '',
         outTime: '',
     })
@@ -19,12 +20,12 @@ function CarParking() {
     function handlchange(e) {
         setInputdata({ ...inputdata, [e.target.name]: e.target.value })
     }
-    let { name, carNo, outTime, inTime } = inputdata
+    let { name, emplyNo, outTime, inTime } = inputdata
     function submit() {
-        if(name && carNo && outTime && inTime){
-        setInputarr([...inputarr, { name, carNo, outTime, inTime }])
-        setInputdata({ name: '', carNo: '', outTime: '', inTime: '' })
-        setNoofcar(noofcar + 1);
+        if(name && emplyNo && outTime && inTime){
+        setInputarr([...inputarr, { name, emplyNo, outTime, inTime }])
+        setInputdata({ name: '', emplyNo: '', outTime: '', inTime: '' })
+        setNoOfEmp(noOfEmp + 1);
         }
         else{
             alert('Please Fill All Details')
@@ -33,7 +34,7 @@ function CarParking() {
     function clear(id) {
         let newarrlist = [...inputarr]
         newarrlist.splice(id, 1)
-        setNoofcar(noofcar - 1)
+        setNoOfEmp(noOfEmp - 1)
         return setInputarr(newarrlist)
     }
     function compareTime(item) {
@@ -55,32 +56,32 @@ function CarParking() {
     });
     useEffect(() => {
        
-        setCurrVehiclesArr(currVehicles);
-    }, [showCurrVehicle])
+        setCurrEmployeeArr(currVehicles);
+    }, [showCurrEmployee])
 
 
     return (
 
         <div>
             
-            <h1>Car Parking App</h1><br />
-            <h2>Number of Car Parked -:{noofcar}</h2>
+            <h1>Employee Details Table</h1><br />
+            <h2>Number of Employee -:{noOfEmp}</h2>
             <input
                 type='text'
                 name='name'
                 value={inputdata.name}
                 autoComplete='newpasword'
-                placeholder='Driver Name...'
+                placeholder='Employee Name...'
                 onChange={handlchange}
             >
             </input>
             <br />
             <input
                 type='text'
-                name='carNo'
-                value={inputdata.carNo}
+                name='emplyNo'
+                value={inputdata.emplyNo}
                 autoComplete='newpasword'
-                placeholder='Car No...'
+                placeholder='Employee No...'
                 onChange={handlchange}
             >
 
@@ -112,30 +113,30 @@ function CarParking() {
             ></input>
              <br />
              <input type='search' onChange={(e)=>setInputsearch(e.target.value)}
-               placeholder='search by car no. or name..'
+               placeholder='SearchByNo./Name..'
                style={{height:'3rem',marginBottom:'1rem'}}></input>
              <br />
             <div className='btn'>
             <button style={{background:'blue',color:'white'}}              
                 onClick={submit}
             >
-                Add Car
+                Add Emp
             </button>
 
             <button style={{background:'blue',color:'white'}}
                
-                onClick={()=>SetShowCurrVehicle(true)}
+                onClick={()=>setShowCurrEmployee(true)}
             >
-                Current Vehicle
+                Current Emp
             </button>
 
             <button style={{background:'blue',color:'white'}}                           
-                onClick={() => SetShowCurrVehicle(false)}
+                onClick={() => setShowCurrEmployee(false)}
             >
-                Vehicle History
+                Emp History
             </button> 
             </div>
-            {!showCurrVehicle ? (
+            {!showCurrEmployee ? (
                
                 <table
                     border={1}
@@ -145,19 +146,19 @@ function CarParking() {
                 >
                     <tr style={{  fontWeight: '700' }}>
 
-                        <th>Driver Name</th>
-                        <th>Car No.</th>
+                        <th>Employee Name</th>
+                        <th>Employee No.</th>
                         <th>CheckInTime</th>
                         <th>CheckOutTime</th>
                         <th>clear</th>
                     </tr>
         {
                         inputarr.filter((i)=>i.name.toLowerCase().includes(inputsearch) ||
-                        i.carNo.toLowerCase().includes(inputsearch))
+                        i.emplyNo.toLowerCase().includes(inputsearch))
                         .map((item, index) => {
                             return <tr key={index} style={{ color: 'green', background: 'blue' }}>
                                 <td>{item.name}</td>
-                                <td>{item.carNo}</td>
+                                <td>{item.emplyNo}</td>
                                 <td>{item.inTime}</td>
                                 <td>{item.outTime}</td>
                                 <td><button style={{background:'blue',color:'white'}}
@@ -167,10 +168,9 @@ function CarParking() {
                     }
                 </table>
              ) : (
-                <CurrVehicles currVehiclesArr={currVehiclesArr} />)}
-            
-        </div>
+                <CurrEmployee currEmployeeArr={currEmployeeArr} />)}
+               </div>
     )
 }
 
-export default CarParking
+export default EmplyTable

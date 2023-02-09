@@ -1,6 +1,6 @@
 import React from 'react'
 
-function CurrVehicles({currVehiclesArr}) {
+function CurrEmployee({currEmployeeArr}) {
   return (
     <div>
         <table
@@ -10,13 +10,13 @@ function CurrVehicles({currVehiclesArr}) {
 >
     <tr style={{ background: '#00FFFF', color: 'red', fontWeight: '700' }}>
 
-        <th>Driver Name</th>
-        <th>Car No.</th>
+        <th>Employee Name</th>
+        <th>Employee No.</th>
         <th>CheckInTime</th>
         <th>CheckOutTime</th>
     </tr>
     {
-        currVehiclesArr.map((item, index) => {
+        currEmployeeArr.map((item, index) => {
             return <tr key={index} style={{ color: 'white', background: 'blue' }}>
 
                 <td>{item.name}</td>
@@ -37,4 +37,4 @@ function CurrVehicles({currVehiclesArr}) {
 
 
 
-export default CurrVehicles
+export default CurrEmployee
